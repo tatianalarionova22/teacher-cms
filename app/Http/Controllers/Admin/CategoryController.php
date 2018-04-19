@@ -23,7 +23,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create', [
+          'category'   => [],
+          'categories' => Category::with('children')->where('parent_id', '0')->get(),
+          'delimiter'  => ''
+        ]);
     }
     /**
      * Store a newly created resource in storage.
@@ -33,7 +37,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create($request->all());
+        return redirect()->route('admin.category.index');
     }
     /**
      * Display the specified resource.

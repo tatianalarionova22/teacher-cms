@@ -5,15 +5,15 @@
 <div class="container">
 
   @component('admin.components.breadcrumb')
-    @slot('title') Список категорий @endslot
+    @slot('title') Список записей блога @endslot
     @slot('parent') Главная @endslot
-    @slot('active') Категории @endslot
+    @slot('active') Записи блога @endslot
   @endcomponent
 
   <hr>
 
-  <a href="{{route('admin.category.create')}}" class="btn btn-primary pull-right">
-    <i class="fa fa-plus-square-o"></i> Создать категорию
+  <a href="{{route('admin.article.create')}}" class="btn btn-primary pull-right">
+    <i class="fa fa-plus-square-o"></i> Создать запись блога
   </a>
 
   <table class="table table-striped">
@@ -23,17 +23,17 @@
         <th class="text-right">Действие</th>
       </thead>
       <tbody>
-        @forelse ($categories as $category)
+        @forelse ($articles as $article)
           <tr>
-            <td>{{$category->title}}</td>
-            <td>{{$category->published}}</td>
+            <td>{{$article->title}}</td>
+            <td>{{$article->published}}</td>
             <td class="text-right">
-              <form onsubmit="if(confirm('Удалить?')){ return true }else{ return false }" action="{{route('admin.category.destroy', $category)}}" method="post">
+              <form onsubmit="if(confirm('Удалить?')){ return true }else{ return false }" action="{{route('admin.article.destroy', $article)}}" method="post">
 
                 <input type="hidden" name="_method" value="delete">
                 {{ csrf_field() }}
 
-                <a class="btn btn-default" href="{{route('admin.category.edit', $category->id)}}">
+                <a class="btn btn-default" href="{{route('admin.article.edit', $article->id)}}">
                   <i class="fa fa-edit"></i>
                 </a>
 
@@ -53,7 +53,7 @@
           <tr>
               <td colspan="3">
                   <ul class="pagination pull-right">
-                      {{$categories->links()}}
+                      {{$articles->links()}}
                   </ul>
               </td>
           </tr>
